@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.7
+          terraform_wrapper: false
+
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive
+
+      - name: Terraform init (module)
+        run: terraform init -backend=false
+
+      - name: Terraform validate (module)
+        run: terraform validate
+
+      - name: Terraform init (minimal example)
+        working-directory: examples/minimal
+        run: terraform init -backend=false
+
+      - name: Terraform validate (minimal example)
+        working-directory: examples/minimal
+        run: terraform validate
+
+      - name: Terraform init (complete example)
+        working-directory: examples/complete
+        run: terraform init -backend=false
+
+      - name: Terraform validate (complete example)
+        working-directory: examples/complete
+        run: terraform validate

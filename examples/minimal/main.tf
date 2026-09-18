@@ -8,7 +8,7 @@
 # -----------------------------------------------------------------------------
 
 module "lb" {
-  source = "../.."
+  source = "git::https://github.com/nurdsoft/terraform-google-lb.git?ref=main"
 
   project_id             = var.project_id
   component              = var.component

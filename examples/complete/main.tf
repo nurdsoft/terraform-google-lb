@@ -15,7 +15,7 @@ module "cloud_armor" {
   name       = "${var.component}-armor-policy"
 }
 
-module "external_https_lb" {
+module "lb" {
   source = "../.."
 
   project_id             = var.project_id

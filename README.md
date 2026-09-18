@@ -1,4 +1,4 @@
-# terraform-google-external-https-lb
+# terraform-google-lb
 
 A Terraform module for provisioning a GCP external HTTPS load balancer in front of a single Cloud Run service — reserved static IP, Serverless NEG, backend service, HTTP→HTTPS redirect, Google-managed SSL certificate, HTTPS forwarding rule, plus optional uptime checks and a monitoring dashboard bundled behind feature flags.
 
@@ -16,19 +16,19 @@ A Terraform module for provisioning a GCP external HTTPS load balancer in front 
 
 - A basic understanding of [Git](https://git-scm.com/).
 - Git version `>= 2.33.0`.
-- An existing GCP IAM user or service account with permissions to create/update/delete the resources defined in [main.tf](https://github.com/nurdsoft/terraform-google-external-https-lb/blob/main/main.tf).
+- An existing GCP IAM user or service account with permissions to create/update/delete the resources defined in [main.tf](https://github.com/nurdsoft/terraform-google-lb/blob/main/main.tf).
 - [GCloud CLI](https://cloud.google.com/sdk/docs/install) `>= 465.0.0`.
 - A basic understanding of [Terraform](https://www.terraform.io/).
 - Terraform version `>= 1.3.0`.
 - (Optional — for local testing) A basic understanding of [Make](https://www.gnu.org/software/make/manual/make.html#Introduction).
   - Make version `>= GNU Make 3.81`.
-  - **Important Note**: This project includes a [Makefile](https://github.com/nurdsoft/terraform-google-external-https-lb/blob/main/Makefile) to speed up local development in Terraform. The `make` targets act as a wrapper around Terraform commands. As such, `make` has only been tested/verified on **Linux/Mac OS**. Though, it is possible to [install make using Chocolatey](https://community.chocolatey.org/packages/make), we **do not** guarantee this approach as it has not been tested/verified. You may use the commands in the [Makefile](https://github.com/nurdsoft/terraform-google-external-https-lb/blob/main/Makefile) as a guide to run each Terraform command locally on Windows.
+  - **Important Note**: This project includes a [Makefile](https://github.com/nurdsoft/terraform-google-lb/blob/main/Makefile) to speed up local development in Terraform. The `make` targets act as a wrapper around Terraform commands. As such, `make` has only been tested/verified on **Linux/Mac OS**. Though, it is possible to [install make using Chocolatey](https://community.chocolatey.org/packages/make), we **do not** guarantee this approach as it has not been tested/verified. You may use the commands in the [Makefile](https://github.com/nurdsoft/terraform-google-lb/blob/main/Makefile) as a guide to run each Terraform command locally on Windows.
 
 ---
 
 ## Test
 
-**Important Note**: This project includes a [Makefile](https://github.com/nurdsoft/terraform-google-external-https-lb/blob/main/Makefile) to speed up local development in Terraform. The `make` targets act as a wrapper around Terraform commands. As such, `make` has only been tested/verified on **Linux/Mac OS**. Though, it is possible to [install make using Chocolatey](https://community.chocolatey.org/packages/make), we **do not** guarantee this approach as it has not been tested/verified. You may use the commands in the [Makefile](https://github.com/nurdsoft/terraform-google-external-https-lb/blob/main/Makefile) as a guide to run each Terraform command locally on Windows.
+**Important Note**: This project includes a [Makefile](https://github.com/nurdsoft/terraform-google-lb/blob/main/Makefile) to speed up local development in Terraform. The `make` targets act as a wrapper around Terraform commands. As such, `make` has only been tested/verified on **Linux/Mac OS**. Though, it is possible to [install make using Chocolatey](https://community.chocolatey.org/packages/make), we **do not** guarantee this approach as it has not been tested/verified. You may use the commands in the [Makefile](https://github.com/nurdsoft/terraform-google-lb/blob/main/Makefile) as a guide to run each Terraform command locally on Windows.
 
 ```sh
 gcloud init # https://cloud.google.com/docs/authentication/gcloud
@@ -54,10 +54,10 @@ Contributions are always welcome. As such, this project uses the `main` branch a
 
 ```sh
 # Using SSH
-$ git clone git@github.com:nurdsoft/terraform-google-external-https-lb.git
+$ git clone git@github.com:nurdsoft/terraform-google-lb.git
 
 # Using HTTPS
-$ git clone https://github.com/nurdsoft/terraform-google-external-https-lb.git
+$ git clone https://github.com/nurdsoft/terraform-google-lb.git
 ```
 
 **Step 2**. Checkout a feature branch: `git checkout -b feat/abc`.
@@ -89,8 +89,8 @@ $ git push --set-upstream origin feat/abc
 ## Usage
 
 ```hcl
-module "external_https_lb" {
-  source  = "nurdsoft/external-https-lb/google"
+module "lb" {
+  source  = "nurdsoft/lb/google"
   version = "1.0.0"
 
   project_id             = "my-gcp-project"
@@ -113,8 +113,8 @@ module "cloud_armor" {
   name       = "frontend-armor-policy"
 }
 
-module "external_https_lb" {
-  source  = "nurdsoft/external-https-lb/google"
+module "lb" {
+  source  = "nurdsoft/lb/google"
   version = "1.0.0"
 
   project_id             = "my-gcp-project"
@@ -132,8 +132,8 @@ module "external_https_lb" {
 Provisions the static IP + backend + HTTP redirect only. Useful for reserving the IP before DNS is ready.
 
 ```hcl
-module "external_https_lb" {
-  source  = "nurdsoft/external-https-lb/google"
+module "lb" {
+  source  = "nurdsoft/lb/google"
   version = "1.0.0"
 
   project_id             = "my-gcp-project"
@@ -231,4 +231,4 @@ Module is maintained by [Nurdsoft](https://github.com/nurdsoft).
 
 ## License
 
-Apache 2 Licensed. See [LICENSE](https://github.com/nurdsoft/terraform-google-external-https-lb/blob/main/LICENSE) for full details.
+Apache 2 Licensed. See [LICENSE](https://github.com/nurdsoft/terraform-google-lb/blob/main/LICENSE) for full details.

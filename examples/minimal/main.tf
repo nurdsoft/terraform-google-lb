@@ -7,7 +7,7 @@
 # the IP before DNS is ready.
 # -----------------------------------------------------------------------------
 
-module "external_https_lb" {
+module "lb" {
   source = "../.."
 
   project_id             = var.project_id
